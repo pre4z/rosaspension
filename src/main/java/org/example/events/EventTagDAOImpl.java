@@ -30,7 +30,7 @@ public class EventTagDAOImpl implements EventTagDAO
         }
         catch(Exception e)
         {
-            System.out.println("EventTag getAllEventTags failed");
+            System.out.println("Error while trying to get event tags");
         }
         return eventTags;
     }
@@ -57,7 +57,7 @@ public class EventTagDAOImpl implements EventTagDAO
         }
         catch(Exception e)
         {
-            System.out.println("EventTag created failed with exception");
+            System.out.println("Error while trying to create event tag");
         }
     }
 
@@ -67,7 +67,7 @@ public class EventTagDAOImpl implements EventTagDAO
         Connection con = null;
         try
         {
-            String sql = "update tblEventTag set tagName = ? where tagId = ?";
+            String sql = "update tblEventTag set fldtagName = ? where fldtagId = ?";
             con = SqlConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, tag.getTagName());
@@ -84,7 +84,7 @@ public class EventTagDAOImpl implements EventTagDAO
         }
         catch(Exception e)
         {
-            System.out.println("EventTag updated failed with exception");
+            System.out.println("Error while trying to update event tag");
         }
     }
 
@@ -110,7 +110,7 @@ public class EventTagDAOImpl implements EventTagDAO
         }
         catch(Exception e)
         {
-            System.out.println("EventTag deleted failed with exception");
+            System.out.println("Error while trying to delete event tag");
         }
     }
 }
