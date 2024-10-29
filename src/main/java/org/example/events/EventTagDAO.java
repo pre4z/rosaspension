@@ -4,8 +4,8 @@ import java.util.List;
 
 public interface EventTagDAO
 {
-    List<EventTag> getAllEventTags();
-    void createEventTag(EventTag tag);
-    void updateEventTag(EventTag tag);
-    void deleteEventTag(EventTag tag);
+    List<EventTag> getAllEventTags() throws Exception;
+    void createEventTag(String tagName) throws Exception;
+    void updateEventTag(EventTag tag) throws Exception;
+    void deleteEventTag(int eventTagID) throws Exception;
 }
