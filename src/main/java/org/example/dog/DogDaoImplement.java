@@ -28,21 +28,20 @@ public class DogDaoImplement implements DogDao {
     @Override
     public void createDog(Dog dawg) throws Exception {
         // fldDogID, fldDogName, fldAge, fldRace, fldSpecialNeeds, fldPreferredVet, fldWeight, fldExpectedStay
-        String sql = "INSERT INTO tblDog VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO tblDog VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         Connection conn = SqlConnection.getConnection();
         PreparedStatement pstmt = conn.prepareStatement(sql);
-        pstmt.setInt(1, dawg.getDogID());
-        pstmt.setString(2, dawg.getName());
-        pstmt.setInt(3, dawg.getAge());
-        pstmt.setString(4, dawg.getRace());
-        pstmt.setString(5, dawg.getSpecialNeeds());
-        pstmt.setString(6, dawg.getPreferredVet());
-        pstmt.setFloat(7, dawg.getWeight());
-        pstmt.setInt(8, dawg.getExpectedStay());
-        pstmt.setInt(9, dawg.getFeedingFreq());
-        pstmt.setInt(10, dawg.getFoodInGrams());
-        pstmt.setInt(11, dawg.getUserID());
-        pstmt.setInt(12, dawg.getFoodID());
+        pstmt.setString(1, dawg.getName());
+        pstmt.setInt(2, dawg.getAge());
+        pstmt.setString(3, dawg.getRace());
+        pstmt.setString(4, dawg.getSpecialNeeds());
+        pstmt.setString(5, dawg.getPreferredVet());
+        pstmt.setFloat(6, dawg.getWeight());
+        pstmt.setInt(7, dawg.getExpectedStay());
+        pstmt.setInt(8, dawg.getFeedingFreq());
+        pstmt.setInt(9, dawg.getFoodInGrams());
+        pstmt.setInt(10, dawg.getUserID());
+        pstmt.setInt(11, dawg.getFoodID());
         int affectedRows = pstmt.executeUpdate();
         if (affectedRows > 0) {
             System.out.println("Dog added successfully.");
