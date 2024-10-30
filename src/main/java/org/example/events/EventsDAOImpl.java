@@ -66,7 +66,8 @@ public class EventsDAOImpl implements EventsDAO
             con = SqlConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, event.getEventDescription());
-            ps.setDate(2, event.getEventDate());
+            java.sql.Date sqlDate = new java.sql.Date(event.getEventDate().getTime());
+            ps.setDate(2, sqlDate);
             ps.setInt(3, event.getEventID());
             ps.setInt(4, event.getDogID());
             int affectedRows = ps.executeUpdate();
@@ -95,7 +96,8 @@ public class EventsDAOImpl implements EventsDAO
             con = SqlConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, event.getEventDescription());
-            ps.setDate(2, event.getEventDate());
+            java.sql.Date sqlDate = new java.sql.Date(event.getEventDate().getTime());
+            ps.setDate(2, sqlDate);
             ps.setInt(3, event.getDogID());
             ps.setInt(4, event.getEventTagID());
             ps.setInt(5, event.getEventID());
