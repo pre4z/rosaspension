@@ -1,11 +1,9 @@
-package org.example.Util;
-
-import org.example.User;
-import org.example.UserDao;
+package org.example.User;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import org.example.Util.SqlConnection;
 
 public class UserDaoImpl implements UserDao
 {
@@ -14,7 +12,7 @@ public class UserDaoImpl implements UserDao
     public List<User> getAllUsers() throws Exception
     {
         Connection con = null;
-        List<User> eventTags = new ArrayList<User>();
+        List<User> users = new ArrayList<User>();
         try
         {
             String sql = "SELECT * FROM tblUsers";
@@ -24,8 +22,8 @@ public class UserDaoImpl implements UserDao
 
             while (rs.next())
             {
-                User user = new User(rs.getInt(1), rs.getString(2));
-                User.add(User);
+                User user = new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getBoolean(9),rs.getBoolean(10));
+                users.add(user);
             }
             return null;
         }
@@ -33,19 +31,28 @@ public class UserDaoImpl implements UserDao
         {
             System.out.println("EventTag getAllEventTags failed");
         }
-        return eventTags;
+        return users;
     }
 
     @Override
-    public void createUser(String tagName) throws Exception
+    public void createUser(User user) throws Exception
     {
         Connection con = null;
         try
         {
-            String sql = "insert into tblUser (Users) values (?)";
+            String sql = "insert into tblUser (Users) values (?),?, +?, ?,";
             con = SqlConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, tagName);
+            ps.setString(1, user.getFirstName());
+            ps.setString(2, user.getLastName());
+            ps.setString(3,user.getLastName());
+            ps.setString(4,user.getUserName());
+            ps.setString(5,user.getAdress());
+            ps.setString(6,user.getPostalCode());
+            ps.setString(7,user.getPhoneNo());
+            ps.setString(8,user.getCprNumber());
+            ps.setBoolean(9,user.getEmployee());
+            ps.setInt(10, user.getUserID());
             int affectedRows = ps.executeUpdate();
             if (affectedRows > 0)
             {
@@ -78,8 +85,8 @@ public class UserDaoImpl implements UserDao
             ps.setString(5,user.getAdress());
             ps.setString(6,user.getPostalCode());
             ps.setString(7,user.getPhoneNo());
-            ps.setString(8,user.getCPRNumber());
-            ps.setBoolean(9,user.getIsEmployee());
+            ps.setString(8,user.getCprNumber());
+            ps.setBoolean(9,user.getEmployee());
             ps.setInt(10, user.getUserID());
 
 
@@ -100,7 +107,7 @@ public class UserDaoImpl implements UserDao
     }
 
     @Override
-    public void deleteUsers(int UserID) throws Exception
+    public void deleteUsers(int userID) throws Exception
     {
         Connection con = null;
         try
@@ -108,7 +115,7 @@ public class UserDaoImpl implements UserDao
             String sql = "delete from tblUsers where UsersID = ?";
             con = SqlConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, UserID);
+            ps.setInt(1, userID);
             int affectedRows = ps.executeUpdate();
             if (affectedRows > 0)
             {
@@ -126,17 +133,7 @@ public class UserDaoImpl implements UserDao
     }
 
     @Override
-    public void readUser(String no) throws Exception {
-
-    }
-
-    @Override
-    public void readAllUsers() throws Exception {
-
-    }
-
-    @Override
-    public void createUser(User user) throws Exception {
-
+    public User getUserByID(int user) throws Exception {
+        return null;
     }
 }

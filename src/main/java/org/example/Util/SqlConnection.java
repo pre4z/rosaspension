@@ -1,4 +1,4 @@
-package org.example.util;
+package org.example.Util;
 import java.sql.*;
 public class SqlConnection
 {
