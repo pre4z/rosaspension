@@ -1,6 +1,6 @@
 package org.example.events;
 
-import org.example.Util.SqlConnection;
+import org.example.util.SqlConnection;
 
 import java.sql.*;
 import java.util.ArrayList;

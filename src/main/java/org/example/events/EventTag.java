@@ -4,6 +4,10 @@ public class EventTag {
     private int eventTagID;
     private String tagName;
 
+    public void setTagName(String tagName) {
+        this.tagName = tagName;
+    }
+
     public int getEventTagID() {
         return eventTagID;
     }
