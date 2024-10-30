@@ -1,6 +1,7 @@
 package org.example;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.List;
 import java.util.Scanner;
 import org.example.user.*;
 
@@ -23,39 +24,52 @@ public class Pension
     {
 
 
-        Connection conn = getConnection();
-        UserDao dao = new UserDaoImpl();
+        UserDao userDao = new UserDaoImpl();
         String menuChoice = "";
 
+        Scanner scanner = new Scanner(System.in);
         while (true)
         {
             showMainMenu();
             //Preparing the system for input
-            Scanner scanner = new Scanner(System.in);
-            int customerChoice=1;
-            int dogChoice=2;
             menuChoice = scanner.nextLine();
-            if(menuChoice.toLowerCase() =="quit")
+            System.out.println(menuChoice);
+            if(menuChoice.equalsIgnoreCase("quit"))
             {
                 break;
             }
-            else if(menuChoice.toLowerCase() =="1")
+            else if(menuChoice.equals("1"))
             {
                 showSubMenuCustomer();
                 menuChoice = scanner.nextLine();
-                if(menuChoice.toLowerCase() =="1")
+                if(menuChoice.equals("1"))
                 {
-                    createNewCustomerInDB(dao, scanner);
+                    createNewCustomerInDB(userDao, scanner);
                 }
-                else if(menuChoice.toLowerCase() =="2")
+                else if(menuChoice.equals("2"))
+                {
+                    List<User> users =printListOfUsersWithID(userDao);
+                    System.out.println("Enter ID of the user you want to delete");
+
+
+                    while (scanner.hasNextInt())
+                    {
+                        try
+                        {
+                            int userID = scanner.nextInt();
+                        }
+                        catch(Exception e)
+                        {
+                            System.out.println("Invalid ID");
+                        }
+                    }
+                }
+                else if(menuChoice.equals("3"))
                 {
 
-                }
-                else if(menuChoice.toLowerCase() =="3")
-                {
 
                 }
-                else if(menuChoice.toLowerCase() =="4")
+                else if(menuChoice.equals("4"))
                 {
 
                 }
@@ -83,7 +97,8 @@ public class Pension
         System.out.println("3. Update Customer");
         System.out.println("4. Go back to main menu.");
     }
-    private static void createNewCustomerInDB(UserDao userDao, Scanner scanner) {
+    private static void createNewCustomerInDB(UserDao userDao, Scanner scanner)
+    {
         String status = "";
         User user = new User();
         System.out.println("Enter first name:");
@@ -109,7 +124,7 @@ public class Pension
 
         System.out.println("Is the customer a employee? Press 1 for YES Press 2 for NO:");
         status = scanner.nextLine();
-        if(status.toLowerCase()=="1")
+        if(status.equals("1"))
         {
             user.setEmployee(true);
         }
@@ -120,7 +135,7 @@ public class Pension
 
         System.out.println("Is the customer CPR verified? Press 1 for YES Press 2 for NO:");
         status = scanner.nextLine();
-        if(status.toLowerCase()=="1")
+        if(status.equals("1"))
         {
             user.setVerified(true);
         }
@@ -139,5 +154,25 @@ public class Pension
         }
     }
 
+    private static List<User>  printListOfUsersWithID(UserDao userDao)
+    {
+        try
+        {
+            List<User> Users = userDao.getAllUsers();
+            for (User u : Users)
+            {
+                System.out.println(u.getUserID() + " = " + u.getFirstName() + " " + u.getLastName());
+            }
+            return Users;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            return null;
+        }
+
+
+
+    }
 
 }
