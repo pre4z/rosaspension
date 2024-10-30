@@ -1,78 +1,95 @@
-/**package org.example.dog;
+package org.example.dog;
+
+import org.example.util.SqlConnection;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class DepartmentDaoImpl implements DogDao {
+public class DogDaoImplement implements DogDao {
 
-    private static final String URL = "jdbc:sqlserver://localhost;instanceName=YOURPC;portNumber=1433;databaseName=YOURDB";
-    private static final String USERNAME = "sa"; // replace with your username
-    private static final String PASSWORD = "123456"; // replace with your password
-
-    public static Connection getConnection() throws Exception {
-        Connection conn = null;
-        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-        System.out.println("Connected to the database.");
-        return conn;
-    }
+    /**
+     * private int dogID;
+     *     private String name;
+     *     private int age;
+     *     private String race;
+     *     private String specialNeeds;
+     *     private String preferredVet;
+     *     private double weight;
+     *     private int expectedStay;
+     *     private int feedingFreq;
+     *     private int foodInGrams;
+     *     fldUserId
+     *     fldFoodID
+     * @param dawg
+     * @throws Exception
+     */
 
     @Override
-    public void createDog(Dog dog) throws Exception {
+    public void createDog(Dog dawg) throws Exception {
         // fldDogID, fldDogName, fldAge, fldRace, fldSpecialNeeds, fldPreferredVet, fldWeight, fldExpectedStay
         String sql = "INSERT INTO tblDog VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        Connection conn = getConnection();
+        Connection conn = SqlConnection.getConnection();
         PreparedStatement pstmt = conn.prepareStatement(sql);
-        pstmt.setInt(1, dog.getDogID());
-        pstmt.setString(2, dog.getName());
-        pstmt.setInt(3, dog.getAge());
+        pstmt.setInt(1, dawg.getDogID());
+        pstmt.setString(2, dawg.getName());
+        pstmt.setInt(3, dawg.getAge());
+        pstmt.setString(4, dawg.getRace());
+        pstmt.setString(5, dawg.getSpecialNeeds());
+        pstmt.setString(6, dawg.getPreferredVet());
+        pstmt.setFloat(7, dawg.getWeight());
+        pstmt.setInt(8, dawg.getExpectedStay());
+        pstmt.setInt(9, dawg.getFeedingFreq());
+        pstmt.setInt(10, dawg.getFoodInGrams());
+        pstmt.setInt(11, dawg.getUserID());
+        pstmt.setInt(12, dawg.getFoodID());
         int affectedRows = pstmt.executeUpdate();
         if (affectedRows > 0) {
-            System.out.println("Department added successfully.");
+            System.out.println("Dog added successfully.");
         } else {
-            System.out.println("Failed to add the department.");
+            System.out.println("Failed to add the dog.");
         }
     }
 
     @Override
-    public void readDepartment(String no) throws Exception{
-        String sql = "SELECT * FROM Department WHERE dept_no = ?";
-        Connection conn = getConnection();
+    public void getDog(int dogID) throws Exception{
+        String sql = "SELECT * FROM tblDog WHERE fldDogID = ?";
+        Connection conn = SqlConnection.getConnection();
         PreparedStatement pstmt = conn.prepareStatement(sql);
-        pstmt.setString(1, no);
+        pstmt.setInt(1, dogID);
         ResultSet rs = pstmt.executeQuery();
         if (rs.next()) {
-            Department department = new Department();
-            department.setNo(rs.getString(1));
-            department.setName(rs.getString(2));
-            department.setLocation(rs.getString(3));
-            System.out.println(department.getNo() + " "+ department.getName()+ " "+ department.getLocation());
+            Dog dawg = new Dog();
+            dawg.setDogID(rs.getInt(1));
+            dawg.setName(rs.getString(2));
+            dawg.setAge(rs.getInt(3));
+            System.out.println(dawg.getDogID() + " "+ dawg.getName()+ " "+ dawg.getAge());
         } else {
-            System.out.println("No department found with ID: " + no);
+            System.out.println("No dog found with ID: " + dogID);
         }
     }
 
     @Override
-    public void readAllDepartments() throws Exception{
-        String sql = "SELECT * FROM Department";
-        Connection conn = getConnection();
+    public void getAllDogs() throws Exception{
+        String sql = "SELECT * FROM tblDog";
+        Connection conn = SqlConnection.getConnection();
         PreparedStatement pstmt = conn.prepareStatement(sql);
         ResultSet rs = pstmt.executeQuery();
-        boolean hasDepartments = false;
+        boolean dogsRegistered = false;
         while (rs.next()) {
-            hasDepartments = true;
-            Department department = new Department();
-            department.setNo(rs.getString(1));
-            department.setName(rs.getString(2));
-            department.setLocation(rs.getString(3));
-            System.out.println(department.getNo()+" "+ department.getName()+department.getLocation());
+            dogsRegistered = true;
+            Dog dawg = new Dog();
+            dawg.setDogID(rs.getInt(1));
+            dawg.setName(rs.getString(2));
+            dawg.setAge(rs.getInt(3));
+            System.out.println(dawg.getDogID()+" "+ dawg.getName()+ dawg.getAge());
         }
-        if (!hasDepartments) {
-            System.out.println("No departments found.");
+        if (!dogsRegistered) {
+            System.out.println("No dogs found.");
         }
     }
-}
 
-**/
+    public void updateDog(Dog dawg) throws Exception {
+        // TBA
+    }
+}
