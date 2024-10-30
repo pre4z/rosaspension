@@ -56,16 +56,16 @@ public class UserDaoImpl implements UserDao
             int affectedRows = ps.executeUpdate();
             if (affectedRows > 0)
             {
-                System.out.println("EventTag created successfully");
+                System.out.println("Customer created successfully");
             }
             else
             {
-                System.out.println("EventTag created failed");
+                System.out.println("Customer creation failed");
             }
         }
         catch(Exception e)
         {
-            System.out.println("EventTag created failed with exception");
+            System.out.println("User creation failed with exception");
         }
     }
 
