@@ -1,9 +1,9 @@
-package org.example.User;
+package org.example.user;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import org.example.Util.SqlConnection;
+import org.example.util.SqlConnection;
 
 public class UserDaoImpl implements UserDao
 {
