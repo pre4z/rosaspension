@@ -48,7 +48,7 @@ public class Pension
                 }
                 else if(menuChoice.equals("2"))
                 {
-                    List<User> users =printListOfUsersWithID(userDao);
+                    printListOfUsersWithID(userDao);
                     System.out.println("Enter ID of the user you want to delete");
 
 
@@ -57,6 +57,9 @@ public class Pension
                         try
                         {
                             int userID = scanner.nextInt();
+
+                            userDao.deleteUsers(userID);
+                            break;
                         }
                         catch(Exception e)
                         {
@@ -66,8 +69,26 @@ public class Pension
                 }
                 else if(menuChoice.equals("3"))
                 {
+                    printListOfUsersWithID(userDao);
+
+                    System.out.println("Enter ID of the user you want to update");
 
 
+                    while (scanner.hasNextInt())
+                    {
+                        try
+                        {
+                            int userID = scanner.nextInt();
+
+                            updateUserPrompt(userDao, scanner, userID);
+
+                            break;
+                        }
+                        catch(Exception e)
+                        {
+                            System.out.println("Invalid ID");
+                        }
+                    }
                 }
                 else if(menuChoice.equals("4"))
                 {
@@ -154,7 +175,7 @@ public class Pension
         }
     }
 
-    private static List<User>  printListOfUsersWithID(UserDao userDao)
+    private static void printListOfUsersWithID(UserDao userDao)
     {
         try
         {
@@ -163,15 +184,107 @@ public class Pension
             {
                 System.out.println(u.getUserID() + " = " + u.getFirstName() + " " + u.getLastName());
             }
-            return Users;
         }
         catch (Exception e)
         {
             System.out.println(e.getMessage());
-            return null;
         }
+    }
+
+    private static void updateUserPrompt (UserDao userDao, Scanner scanner, int userID)
+    {
+        try
+        {
+            scanner = new Scanner(System.in);
+            String newValue = "";
+            User user = userDao.getUserByID(userID);
+            System.out.println("The user chosen is: " + user.getFirstName());
+            System.out.println("Enter new name or leave empty to keep as is");
+
+            newValue = scanner.nextLine();
+            if (!newValue.isEmpty())
+            {
+                user.setFirstName(newValue);
+                newValue = "";
+            }
+
+            System.out.println("The lastname of the chosen user is: " + user.getLastName());
+            System.out.println("Enter new lastname or leave empty to keep as is");
+
+            newValue = scanner.nextLine();
+            if (!newValue.isEmpty())
+            {
+                user.setLastName(newValue);
+                newValue = "";
+            }
+
+            System.out.println("The username of the chosen user is:" + user.getUserName());
+            System.out.println("Enter new username or leave empty to keep as is");
+
+            newValue = scanner.nextLine();
+            if (!newValue.isEmpty())
+            {
+                user.setUserName(newValue);
+                newValue = "";
+            }
+
+            System.out.println("The adress of the chosen user is:" + user.getAdress());
+            System.out.println("Enter new adress or leave empty to keep as is");
+
+            newValue = scanner.nextLine();
+            if (!newValue.isEmpty())
+            {
+                user.setAdress(newValue);
+                newValue = "";
+            }
+
+            System.out.println("The postalcode of the chosen user is:" + user.getPostalCode());
+            System.out.println("Enter new postalcode or leave empty to keep as is");
+
+            newValue = scanner.nextLine();
+            if (!newValue.isEmpty())
+            {
+                user.setPostalCode(newValue);
+                newValue = "";
+            }
+
+            System.out.println("The phonenumber of the chosen user is:" + user.getPhoneNo());
+            System.out.println("Enter new phonenumber or leave empty to keep as is");
+
+            newValue = scanner.nextLine();
+            if (!newValue.isEmpty())
+            {
+                user.setPhoneNo(newValue);
+                newValue = "";
+            }
+
+            System.out.println("The CPR-number of the chosen user is:" + user.getCprNumber());
+            System.out.println("Enter new CPR-number or leave empty to keep as is");
+
+            newValue = scanner.nextLine();
+            if (!newValue.isEmpty())
+            {
+                user.setCprNumber(newValue);
+                newValue = "";
+            }
 
 
+            System.out.println("Do you want to change the employment status? Current status is:" + user.getEmployee());
+            System.out.println("If you want to change PRESS 1 - PRESS 2 to keep as is");
+
+            newValue = scanner.nextLine();
+            if (newValue.equals("1"))
+            {
+                user.setEmployee(!user.getEmployee());
+                newValue = "";
+            }
+
+            userDao.updateUser(user);
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
 
     }
 
