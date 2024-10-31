@@ -5,4 +5,5 @@ public interface DogDao {
     void getAllDogs() throws Exception;
     void createDog(Dog dog) throws Exception;
     void updateDog(Dog dog) throws Exception;
+    void deleteDog(int dogID) throws Exception;
 }

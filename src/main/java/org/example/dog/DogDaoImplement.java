@@ -25,9 +25,13 @@ public class DogDaoImplement implements DogDao {
      * @throws Exception
      */
 
+    /**
+     * Method to CREATE the dog in the DB.
+     * @param dawg
+     * @throws Exception
+     */
     @Override
     public void createDog(Dog dawg) throws Exception {
-        // fldDogID, fldDogName, fldAge, fldRace, fldSpecialNeeds, fldPreferredVet, fldWeight, fldExpectedStay
         String sql = "INSERT INTO tblDog VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         Connection conn = SqlConnection.getConnection();
         PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -44,9 +48,9 @@ public class DogDaoImplement implements DogDao {
         pstmt.setInt(11, dawg.getFoodID());
         int affectedRows = pstmt.executeUpdate();
         if (affectedRows > 0) {
-            System.out.println("Dog added successfully.");
+            System.out.println("Dog registered successfully!");
         } else {
-            System.out.println("Failed to add the dog.");
+            System.out.println("Failed to register dog! Please try again!");
         }
     }
 
@@ -90,5 +94,16 @@ public class DogDaoImplement implements DogDao {
 
     public void updateDog(Dog dawg) throws Exception {
         // TBA
+    }
+
+    @Override
+    public void deleteDog(int dogID) throws Exception {
+        String sql = "DELETE FROM tblDog WHERE fldDogID = ?";
+        Connection conn = SqlConnection.getConnection();
+
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setInt(1, dogID);
+        int affectedRows = pstmt.executeUpdate();
+        if (affectedRows > 0) {System.out.println("Dog deleted successfully!");} else {System.out.println("Error in the deletion process. Did you enter the right ID?");}
     }
 }

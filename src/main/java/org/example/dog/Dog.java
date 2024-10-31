@@ -54,7 +54,7 @@ public class Dog {
     private int foodInGrams;
 
 
-    public Dog(int dogID, String name, int age, String race, String specialNeeds, String preferredVet, float weight, int expectedStay, int foodInGrams, int userID, int foodID) {
+    public Dog(int dogID, String name, int age, String race, String specialNeeds, String preferredVet, float weight, int expectedStay, int foodInGrams, int feedingFreq, int userID, int foodID) {
         this.dogID = dogID;
         this.name = name;
         this.age = age;
@@ -65,6 +65,7 @@ public class Dog {
         this.expectedStay = expectedStay;
         this.userID = userID;
         this.foodInGrams = foodInGrams;
+        this.feedingFreq = feedingFreq;
         this.foodID = foodID;
 
 

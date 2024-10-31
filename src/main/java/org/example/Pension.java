@@ -3,6 +3,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.List;
 import java.util.Scanner;
+
+import org.example.dog.Dog;
+import org.example.dog.DogDao;
+import org.example.dog.DogDaoImplement;
 import org.example.user.*;
 
 public class Pension
@@ -34,6 +38,9 @@ public class Pension
 
 
         UserDao userDao = new UserDaoImpl();
+
+        DogDao dogDao = new DogDaoImplement();
+
         String menuChoice = "";
 
         Scanner scanner = new Scanner(System.in);
@@ -48,8 +55,7 @@ public class Pension
              */
             menuChoice = scanner.nextLine();
             System.out.println(menuChoice);
-            if(menuChoice.equalsIgnoreCase("quit"))
-            {
+            if(menuChoice.equalsIgnoreCase("quit")) {
                 break;
             }
             else if(menuChoice.equals("1"))
@@ -109,6 +115,26 @@ public class Pension
 
                 }
 
+                /**
+                 * Here we handle the dog menu.
+                 */
+            } else if (menuChoice.equals("2")) {
+                showSubMenuDog();
+
+                menuChoice = scanner.nextLine();
+
+                if(menuChoice.equals("1")) { // Add Dog
+                    setupDog(dogDao, scanner);
+                    continue;
+                } else if (menuChoice.equals("2")) { // Delete Dog
+                    deleteDog(scanner);
+                } else if (menuChoice.equals("3")) { // Edit Dog
+
+                } else if (menuChoice.equals("4")) { // Exit to menu
+
+                }
+                break;
+
             }
         }
 
@@ -137,6 +163,17 @@ public class Pension
         System.out.println("2. Delete Customer");
         System.out.println("3. Update Customer");
         System.out.println("4. Go back to main menu.");
+    }
+
+    /**
+     * Print the sub menu for dog actions.
+     */
+    private static void showSubMenuDog() {
+        System.out.println("Please select which option you would like to perform:");
+        System.out.println("1. Add Dog");
+        System.out.println("2. Delete Dog");
+        System.out.println("3. Edit Dog");
+        System.out.println("4. Exit to menu");
     }
 
     /**
@@ -198,6 +235,79 @@ public class Pension
         catch (Exception e)
         {
             System.out.println(e.getMessage());
+        }
+    }
+
+    /**
+     * Method that asks the user about his information/wishes and then actually gets to making the dog in the DB.
+     * @param dogDao
+     * @param input
+     */
+    private static void setupDog(DogDao dogDao, Scanner input) {
+        Dog dawg = new Dog();
+
+        System.out.println("Enter name: ");
+        dawg.setName(input.nextLine());
+
+        System.out.println("Enter age: ");
+        dawg.setAge(Integer.parseInt(input.nextLine()));
+
+        System.out.println("Enter race: ");
+        dawg.setRace(input.nextLine());
+
+        System.out.println("Enter special needs: ");
+        dawg.setSpecialNeeds(input.nextLine());
+
+        System.out.println("Enter Preferred Vet: ");
+        dawg.setPreferredVet(input.nextLine());
+
+        System.out.println("Enter weight: ");
+        dawg.setWeight(Float.parseFloat(input.nextLine()));
+
+        System.out.println("How long is the expected stay?: ");
+        dawg.setExpectedStay(input.nextInt());
+
+        System.out.println("How many grams of food should the dog be fed per day?: ");
+        dawg.setFoodInGrams(input.nextInt());
+
+        System.out.println("How many times per day should the dog be fed?");
+        dawg.setFeedingFreq(input.nextInt());
+
+        System.out.println("Enter owners User ID: ");
+        dawg.setUserID(input.nextInt());
+
+        System.out.println("Enter desired Food ID: ");
+        dawg.setFoodID(input.nextInt());
+
+        try {
+            dogDao.createDog(dawg);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Method that lets the user DELETE a dog from the Database, by asking about the ID of the dog and then deleting it.
+     * @param input
+     */
+
+    private static void deleteDog(Scanner input) {
+        DogDao dogDao = new DogDaoImplement();
+
+        System.out.println("Enter ID of the dog you wish to delete: ");
+        while (input.hasNextInt())
+        {
+            try
+            {
+                int id = input.nextInt();
+
+                dogDao.deleteDog(id);
+                break;
+            }
+            catch(Exception e)
+            {
+                System.out.println("Invalid ID");
+            }
         }
     }
 
