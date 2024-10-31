@@ -22,10 +22,11 @@ public class UserDaoImpl implements UserDao
 
             while (rs.next())
             {
-                User user = new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getBoolean(9),rs.getBoolean(10));
+                User user = new User();
+                setUserProperties(rs, user);
                 users.add(user);
             }
-            return null;
+            return users;
         }
         catch(Exception e)
         {
@@ -40,32 +41,31 @@ public class UserDaoImpl implements UserDao
         Connection con = null;
         try
         {
-            String sql = "insert into tblUser (Users) values (?),?, +?, ?,";
+            String sql = "insert into tblUsers values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             con = SqlConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, user.getFirstName());
             ps.setString(2, user.getLastName());
-            ps.setString(3,user.getLastName());
-            ps.setString(4,user.getUserName());
-            ps.setString(5,user.getAdress());
-            ps.setString(6,user.getPostalCode());
-            ps.setString(7,user.getPhoneNo());
-            ps.setString(8,user.getCprNumber());
-            ps.setBoolean(9,user.getEmployee());
-            ps.setInt(10, user.getUserID());
+            ps.setString(3,user.getUserName());
+            ps.setString(4,user.getAdress());
+            ps.setString(5,user.getPostalCode());
+            ps.setString(6,user.getPhoneNo());
+            ps.setString(7,user.getCprNumber());
+            ps.setBoolean(8,user.getEmployee());
+            ps.setBoolean(9,user.getVerified());
             int affectedRows = ps.executeUpdate();
             if (affectedRows > 0)
             {
-                System.out.println("EventTag created successfully");
+                System.out.println("Customer created successfully");
             }
             else
             {
-                System.out.println("EventTag created failed");
+                System.out.println("Customer creation failed");
             }
         }
         catch(Exception e)
         {
-            System.out.println("EventTag created failed with exception");
+            System.out.println("User creation failed with exception");
         }
     }
 
@@ -75,19 +75,18 @@ public class UserDaoImpl implements UserDao
         Connection con = null;
         try
         {
-            String sql = "update tblUsers set fldFirstName = ?, set fldLastName = ? where UserID = ?";
+            String sql = "update tblUsers set fldFirstName = ?, fldLastName = ?, fldUserName = ?, fldAdress = ?, fldPostalCode = ?, fldPhoneNo = ?, fldCPRNumber = ?, fldIsEmployee = ? where fldUserID = ?";
             con = SqlConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, user.getFirstName());
             ps.setString(2, user.getLastName());
-            ps.setString(3,user.getLastName());
-            ps.setString(4,user.getUserName());
-            ps.setString(5,user.getAdress());
-            ps.setString(6,user.getPostalCode());
-            ps.setString(7,user.getPhoneNo());
-            ps.setString(8,user.getCprNumber());
-            ps.setBoolean(9,user.getEmployee());
-            ps.setInt(10, user.getUserID());
+            ps.setString(3,user.getUserName());
+            ps.setString(4,user.getAdress());
+            ps.setString(5,user.getPostalCode());
+            ps.setString(6,user.getPhoneNo());
+            ps.setString(7,user.getCprNumber());
+            ps.setBoolean(8,user.getEmployee());
+            ps.setInt(9, user.getUserID());
 
 
             int affectedRows = ps.executeUpdate();
@@ -112,7 +111,7 @@ public class UserDaoImpl implements UserDao
         Connection con = null;
         try
         {
-            String sql = "delete from tblUsers where UsersID = ?";
+            String sql = "delete from tblUsers where fldUserID = ?";
             con = SqlConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, userID);
@@ -133,7 +132,42 @@ public class UserDaoImpl implements UserDao
     }
 
     @Override
-    public User getUserByID(int user) throws Exception {
+    public User getUserByID(int userID) throws Exception
+    {
+        Connection con = null;
+        try
+        {
+            String sql = "SELECT * FROM tblUsers WHERE fldUserID = ?";
+            con = SqlConnection.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, userID);
+            ResultSet rs = ps.executeQuery();
+            User user = new User();
+
+            if (rs.next())
+            {
+                setUserProperties(rs, user);
+            }
+
+            return user;
+        }
+        catch(Exception e)
+        {
+            System.out.println("Error while trying to get user by ID");
+        }
         return null;
+    }
+    private void setUserProperties(ResultSet rs, User user) throws Exception
+    {
+        user.setUserID(rs.getInt(1));
+        user.setFirstName(rs.getString(2));
+        user.setLastName(rs.getString(3));
+        user.setUserName(rs.getString(4));
+        user.setAdress(rs.getString(5));
+        user.setPostalCode(rs.getString(6));
+        user.setPhoneNo(rs.getString(7));
+        user.setCprNumber(rs.getString(8));
+        user.setEmployee(rs.getBoolean(9));
+        user.setVerified(rs.getBoolean(10));
     }
 }

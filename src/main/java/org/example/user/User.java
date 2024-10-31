@@ -120,5 +120,9 @@ public class User
     {
         this.userID = userID;
     }
+    public User()
+    {
+
+    }
 
 }
