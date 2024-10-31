@@ -15,7 +15,7 @@ public class EventsDAOImpl implements EventsDAO
         List<Event> events = new ArrayList<Event>();
         try
         {
-            String sql = "select * from tblevents where dogID = ?";
+            String sql = "select * from tblevents where fldDogID = ?";
             con = SqlConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, dogID);
@@ -44,7 +44,7 @@ public class EventsDAOImpl implements EventsDAO
         Connection con = null;
         try
         {
-            String sql = "select * from tblevents where eventID = ?";
+            String sql = "select * from tblevents where fldEventID = ?";
             con = SqlConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, eventID);
@@ -103,7 +103,7 @@ public class EventsDAOImpl implements EventsDAO
         Connection con = null;
         try
         {
-            String sql = "UPDATE tblEvents SET fldEventDescription = ?, fldEventDate = ?, fldDogID = ?, fldEventTagID WHERE eventID = ?";
+            String sql = "UPDATE tblEvents SET fldEventDescription = ?, fldEventDate = ?, fldDogID = ?, fldEventTagID WHERE fldEventID = ?";
             con = SqlConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, event.getEventDescription());

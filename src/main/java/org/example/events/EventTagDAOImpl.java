@@ -43,7 +43,7 @@ public class EventTagDAOImpl implements EventTagDAO
         Connection con = null;
         try
         {
-            String sql = "insert into tblEventTag (tagName) values (?)";
+            String sql = "insert into tblEventTag (fldTagName) values (?)";
             con = SqlConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, tagName);
@@ -69,7 +69,7 @@ public class EventTagDAOImpl implements EventTagDAO
         Connection con = null;
         try
         {
-            String sql = "update tblEventTag set fldtagName = ? where fldtagId = ?";
+            String sql = "update tblEventTag set fldTagName = ? where fldEventTagID = ?";
             con = SqlConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, tag.getTagName());
@@ -96,7 +96,7 @@ public class EventTagDAOImpl implements EventTagDAO
         Connection con = null;
         try
         {
-            String sql = "delete from tblEventTag where tagId = ?";
+            String sql = "delete from tblEventTag where fldEventTagID = ?";
             con = SqlConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, eventTagID);
