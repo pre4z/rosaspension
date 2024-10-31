@@ -22,7 +22,12 @@ public class EventsDAOImpl implements EventsDAO
             ResultSet rs = ps.executeQuery();
             while (rs.next())
             {
-                Event event = new Event(rs.getInt(1), rs.getString(2), rs.getDate(3), rs.getInt(4), rs.getInt(5));
+                Event event = new Event();
+                event.setEventID(rs.getInt(1));
+                event.setEventDescription(rs.getString(2));
+                event.setEventDate(rs.getDate(3));
+                event.setEventTagID(rs.getInt(4));
+                event.setDogID(rs.getInt(5));
                 events.add(event);
             }
         }
@@ -46,7 +51,13 @@ public class EventsDAOImpl implements EventsDAO
             ResultSet rs = ps.executeQuery();
             if (rs.next())
             {
-                return new Event(rs.getInt(1), rs.getString(2), rs.getDate(3), rs.getInt(4), rs.getInt(5));
+                Event event = new Event();
+                event.setEventID(rs.getInt(1));
+                event.setEventDescription(rs.getString(2));
+                event.setEventDate(rs.getDate(3));
+                event.setEventTagID(rs.getInt(4));
+                event.setDogID(rs.getInt(5));
+                return event;
             }
         }
         catch (Exception e)

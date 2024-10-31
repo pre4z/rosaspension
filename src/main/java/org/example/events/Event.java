@@ -10,6 +10,10 @@ public class Event
     private int eventTagID;
     private int dogID;
 
+    public void setEventID(int eventID) {
+        this.eventID = eventID;
+    }
+
     public void setEventDescription(String eventDescription) {
         this.eventDescription = eventDescription;
     }
@@ -55,6 +59,5 @@ public class Event
         this.eventTagID = eventTagID;
         this.dogID = dogID;
     }
-
-
+    public Event() {}
 }
