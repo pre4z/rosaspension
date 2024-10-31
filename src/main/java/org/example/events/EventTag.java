@@ -4,6 +4,10 @@ public class EventTag {
     private int eventTagID;
     private String tagName;
 
+    public void setEventTagID(int eventTagID) {
+        this.eventTagID = eventTagID;
+    }
+
     public void setTagName(String tagName) {
         this.tagName = tagName;
     }
@@ -21,4 +25,5 @@ public class EventTag {
         this.eventTagID = eventTagID;
         this.tagName = tagName;
     }
+    public EventTag(){}
 }

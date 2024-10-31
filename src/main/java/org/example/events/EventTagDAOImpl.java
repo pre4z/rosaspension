@@ -23,10 +23,12 @@ public class EventTagDAOImpl implements EventTagDAO
 
             while (rs.next())
             {
-                EventTag eventTag = new EventTag(rs.getInt(1), rs.getString(2));
+                EventTag eventTag = new EventTag();
+                eventTag.setEventTagID(rs.getInt(1));
+                eventTag.setTagName(rs.getString(2));
                 eventTags.add(eventTag);
             }
-            return null;
+            return eventTags;
         }
         catch(Exception e)
         {
