@@ -5,9 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import org.example.util.SqlConnection;
 
+
+//Preparing contact from our user object to the database.
 public class UserDaoImpl implements UserDao
 {
 
+    //Get a list with all the users, from the database.
     @Override
     public List<User> getAllUsers() throws Exception
     {
@@ -35,6 +38,7 @@ public class UserDaoImpl implements UserDao
         return users;
     }
 
+    //Create user in the database, using the variables given in main.
     @Override
     public void createUser(User user) throws Exception
     {
@@ -69,6 +73,7 @@ public class UserDaoImpl implements UserDao
         }
     }
 
+    //Update the user information in the database, through input in main.
     @Override
     public void updateUser(User user) throws Exception
     {
@@ -105,6 +110,7 @@ public class UserDaoImpl implements UserDao
         }
     }
 
+    //Delete user from the DB, gets input through main, works through userID.
     @Override
     public void deleteUsers(int userID) throws Exception
     {
@@ -131,6 +137,7 @@ public class UserDaoImpl implements UserDao
         }
     }
 
+    //Show a specific user from our database.
     @Override
     public User getUserByID(int userID) throws Exception
     {
@@ -157,6 +164,7 @@ public class UserDaoImpl implements UserDao
         }
         return null;
     }
+    //Method to get information of the user out of the database.
     private void setUserProperties(ResultSet rs, User user) throws Exception
     {
         user.setUserID(rs.getInt(1));

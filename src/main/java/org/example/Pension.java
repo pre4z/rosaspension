@@ -12,6 +12,7 @@ public class Pension
     private static final String USER = "sa";
     private static final String PASS = "securepassword123!";
 
+    //Establish connection to the DB.
     public static Connection getConnection() throws Exception
     {
         Connection con = null;
@@ -30,8 +31,9 @@ public class Pension
         Scanner scanner = new Scanner(System.in);
         while (true)
         {
+            //Show the Menu in the console.
             showMainMenu();
-            //Preparing the system for input
+            //Preparing the system for input, and getting User input, using our methods to gain full CRUD for User.
             menuChoice = scanner.nextLine();
             System.out.println(menuChoice);
             if(menuChoice.equalsIgnoreCase("quit"))
@@ -100,16 +102,16 @@ public class Pension
 
 
     }
-
+    //Method to show the Main Menu to the user.
     private static void showMainMenu()
     {
-        //Show the menu.
         System.out.println("Welcome to Rosa´s Dog Pension ");
         System.out.println("Please select what type of query you have:");
         System.out.println("1. Customer");
         System.out.println("2. Dog");
         System.out.println("Type \"quit\" to exit.");
     }
+    //Method to print the Sub Menu after the first choice.
     private static void showSubMenuCustomer()
     {
         System.out.println("Please select what type of query you have:");
@@ -118,6 +120,7 @@ public class Pension
         System.out.println("3. Update Customer");
         System.out.println("4. Go back to main menu.");
     }
+    //Method to Create a user through DAO.
     private static void createNewCustomerInDB(UserDao userDao, Scanner scanner)
     {
         String status = "";
@@ -174,7 +177,7 @@ public class Pension
             System.out.println(e.getMessage());
         }
     }
-
+    //Method to print list of users in our DB, uses DAO.
     private static void printListOfUsersWithID(UserDao userDao)
     {
         try
@@ -190,7 +193,7 @@ public class Pension
             System.out.println(e.getMessage());
         }
     }
-
+    //Method to update the user entries in our DB.
     private static void updateUserPrompt (UserDao userDao, Scanner scanner, int userID)
     {
         try

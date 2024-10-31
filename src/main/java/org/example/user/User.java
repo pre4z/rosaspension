@@ -1,5 +1,6 @@
 package org.example.user;
 
+//Preparing the class "User" for later use in the program.
 public class User
 {
     private int userID;
@@ -13,6 +14,7 @@ public class User
     private Boolean isEmployee;
     private Boolean isVerified;
 
+    //Constructor with all the variables we need to gain full CRUD.
     public int getUserID()
     {
         return userID;
@@ -113,13 +115,7 @@ public class User
         isVerified = verified;
     }
 
-
-
-
-    public User(int userID,String FirstName,String LastName,String UserName,String Adress,String PostalCode,String PhoneNo,String CPRNumber,Boolean IsEmployee,Boolean IsVerified)
-    {
-        this.userID = userID;
-    }
+    //Empty constructor, so we can create an instance of the class without the variables.
     public User()
     {
 
