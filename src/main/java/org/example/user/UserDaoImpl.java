@@ -5,12 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 import org.example.util.SqlConnection;
 
-
-//Preparing contact from our user object to the database.
+/**
+ * Preparing contact from our user object to the database.
+ */
 public class UserDaoImpl implements UserDao
 {
 
-    //Get a list with all the users, from the database.
+    /**
+     * Get a list with all the users, from the database.
+     * @return
+     * @throws Exception
+     */
     @Override
     public List<User> getAllUsers() throws Exception
     {
@@ -38,7 +43,11 @@ public class UserDaoImpl implements UserDao
         return users;
     }
 
-    //Create user in the database, using the variables given in main.
+    /**
+     * Create user in the database, using the variables given in main.
+     * @param user
+     * @throws Exception
+     */
     @Override
     public void createUser(User user) throws Exception
     {
@@ -73,7 +82,11 @@ public class UserDaoImpl implements UserDao
         }
     }
 
-    //Update the user information in the database, through input in main.
+    /**
+     * Update the user information in the database, through input in main.
+     * @param user
+     * @throws Exception
+     */
     @Override
     public void updateUser(User user) throws Exception
     {
@@ -110,7 +123,11 @@ public class UserDaoImpl implements UserDao
         }
     }
 
-    //Delete user from the DB, gets input through main, works through userID.
+    /**
+     * Delete user from the DB, gets input through main, works through userID.
+     * @param userID
+     * @throws Exception
+     */
     @Override
     public void deleteUsers(int userID) throws Exception
     {
@@ -137,7 +154,12 @@ public class UserDaoImpl implements UserDao
         }
     }
 
-    //Show a specific user from our database.
+    /**
+     * Show a specific user from our database.
+     * @param userID
+     * @return
+     * @throws Exception
+     */
     @Override
     public User getUserByID(int userID) throws Exception
     {
@@ -164,7 +186,13 @@ public class UserDaoImpl implements UserDao
         }
         return null;
     }
-    //Method to get information of the user out of the database.
+
+    /**
+     * Method to get information of the user out of the database.
+     * @param rs
+     * @param user
+     * @throws Exception
+     */
     private void setUserProperties(ResultSet rs, User user) throws Exception
     {
         user.setUserID(rs.getInt(1));

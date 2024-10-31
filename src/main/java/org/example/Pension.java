@@ -7,12 +7,20 @@ import org.example.user.*;
 
 public class Pension
 {
-    //Preparing the System to write in our Database
+    /**
+     * Preparing the System to write in our Database
+     */
     private static final String URL = "jdbc:sqlserver://162.19.246.106";
     private static final String USER = "sa";
     private static final String PASS = "securepassword123!";
 
-    //Establish connection to the DB.
+
+
+    /**
+     * Establish connection to the DB.
+     * @return
+     * @throws Exception
+     */
     public static Connection getConnection() throws Exception
     {
         Connection con = null;
@@ -31,9 +39,13 @@ public class Pension
         Scanner scanner = new Scanner(System.in);
         while (true)
         {
-            //Show the Menu in the console.
+            /**
+             * Show the Menu in the console.
+             */
             showMainMenu();
-            //Preparing the system for input, and getting User input, using our methods to gain full CRUD for User.
+            /**
+             * Preparing the system for input, and getting User input, using our methods to gain full CRUD for User.
+             */
             menuChoice = scanner.nextLine();
             System.out.println(menuChoice);
             if(menuChoice.equalsIgnoreCase("quit"))
@@ -102,7 +114,10 @@ public class Pension
 
 
     }
-    //Method to show the Main Menu to the user.
+
+    /**
+     * Method to show the Main Menu to the user.
+     */
     private static void showMainMenu()
     {
         System.out.println("Welcome to Rosa´s Dog Pension ");
@@ -111,7 +126,10 @@ public class Pension
         System.out.println("2. Dog");
         System.out.println("Type \"quit\" to exit.");
     }
-    //Method to print the Sub Menu after the first choice.
+
+    /**
+     * Method to print the Sub Menu after the first choice.
+     */
     private static void showSubMenuCustomer()
     {
         System.out.println("Please select what type of query you have:");
@@ -120,7 +138,12 @@ public class Pension
         System.out.println("3. Update Customer");
         System.out.println("4. Go back to main menu.");
     }
-    //Method to Create a user through DAO.
+
+    /**
+     * Method to Create a user through DAO.
+     * @param userDao
+     * @param scanner
+     */
     private static void createNewCustomerInDB(UserDao userDao, Scanner scanner)
     {
         String status = "";
@@ -177,7 +200,11 @@ public class Pension
             System.out.println(e.getMessage());
         }
     }
-    //Method to print list of users in our DB, uses DAO.
+
+    /**
+     * Method to print list of users in our DB, uses DAO.
+     * @param userDao
+     */
     private static void printListOfUsersWithID(UserDao userDao)
     {
         try
@@ -193,7 +220,13 @@ public class Pension
             System.out.println(e.getMessage());
         }
     }
-    //Method to update the user entries in our DB.
+
+    /**
+     * Method to update the user entries in our DB.
+     * @param userDao
+     * @param scanner
+     * @param userID
+     */
     private static void updateUserPrompt (UserDao userDao, Scanner scanner, int userID)
     {
         try
