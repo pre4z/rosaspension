@@ -128,10 +128,9 @@ public class Pension
                     continue;
                 } else if (menuChoice.equals("2")) { // Delete Dog
                     deleteDog(scanner);
-                } else if (menuChoice.equals("3")) { // Edit Dog
-
-                } else if (menuChoice.equals("4")) { // Exit to menu
-
+                    continue;
+                } else if (menuChoice.equals("3")) { // Exit to menu
+                    continue;
                 }
                 break;
 
@@ -172,8 +171,7 @@ public class Pension
         System.out.println("Please select which option you would like to perform:");
         System.out.println("1. Add Dog");
         System.out.println("2. Delete Dog");
-        System.out.println("3. Edit Dog");
-        System.out.println("4. Exit to menu");
+        System.out.println("3. Exit to menu");
     }
 
     /**
