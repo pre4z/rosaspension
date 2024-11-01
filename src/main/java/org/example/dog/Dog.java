@@ -10,19 +10,65 @@ public class Dog {
     private String race;
     private String specialNeeds;
     private String preferredVet;
-    private double weight;
+    private float weight;
     private int expectedStay;
+    private int userID;
+    private int foodID;
+
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
+
+
+    public int getFoodID() {
+        return foodID;
+    }
+
+    public void setFoodID(int foodID) {
+        this.foodID = foodID;
+    }
+
+
+    public int getFeedingFreq() {
+        return feedingFreq;
+    }
+
+    public void setFeedingFreq(int feedingFreq) {
+        this.feedingFreq = feedingFreq;
+    }
+
     private int feedingFreq;
+
+    public int getFoodInGrams() {
+        return foodInGrams;
+    }
+
+    public void setFoodInGrams(int foodInGrams) {
+        this.foodInGrams = foodInGrams;
+    }
+
     private int foodInGrams;
 
 
-    public Dog(String name, int age, String race, String specialNeeds, String preferredVet, double weight) {
+    public Dog(int dogID, String name, int age, String race, String specialNeeds, String preferredVet, float weight, int expectedStay, int foodInGrams, int feedingFreq, int userID, int foodID) {
+        this.dogID = dogID;
         this.name = name;
         this.age = age;
         this.race = race;
         this.specialNeeds = specialNeeds;
         this.preferredVet = preferredVet;
         this.weight = weight;
+        this.expectedStay = expectedStay;
+        this.userID = userID;
+        this.foodInGrams = foodInGrams;
+        this.feedingFreq = feedingFreq;
+        this.foodID = foodID;
+
+
     }
     public Dog() {}
 
@@ -64,11 +110,18 @@ public class Dog {
     public void setPreferredVet(String preferredVet) {
         this.preferredVet = preferredVet;
     }
-    public double getWeight() {
+    public float getWeight() {
         return weight;
     }
-    public void setWeight(double weight) {
+    public void setWeight(float weight) {
         this.weight = weight;
+    }
+    public int getExpectedStay() {
+        return expectedStay;
+    }
+
+    public void setExpectedStay(int expectedStay) {
+        this.expectedStay = expectedStay;
     }
 
 
